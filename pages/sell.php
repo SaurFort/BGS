@@ -72,18 +72,22 @@
                 } ?>
                 <div class="grid">
                     <div class="tiles">
+                        <img src="../assets/images/ms.png"/>
                         <option value="simple">Menu Simple - $40</option>
                         <input name="simple" for="simple" type="number" id="simpleQuantity" placeholder="Quantité" style="width: 90%;" value="0">
                     </div>
                     <div class="tiles">
+                        <img src="../assets/images/mp.png"/>
                         <option value="premium">Menu Premium - $50</option>
                         <input name="premium" for="premium" type="number" id="premiumQuantity" placeholder="Quantité" style="width: 90%;" value="0">
                     </div>
                     <div class="tiles">
+                        <img src="../assets/images/mm.png"/>
                         <option value="maxi">Menu Maxi - $55</option>
                         <input name="maxi" for="maxi" type="number" id="maxiQuantity" placeholder="Quantité" style="width: 90%;" value="0">
                     </div>
                     <div class="tiles">
+                        <img src="../assets/images/md.png"/>
                         <option value="double">Menu Double - $60</option>
                         <input name="double" for="double" type="number" id="doubleQuantity" placeholder="Quantité" style="width: 90%;" value="0">
                     </div>

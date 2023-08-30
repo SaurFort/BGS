@@ -9,19 +9,25 @@
 
     include('../assets/php/db_connect.php');
 
-    $simpleMenu = "Menu simple : 0";
-    $premiumMenu = "Menu premium : 0";
-    $maxiMenu = "Menu maxi : 0";
-    $doubleMenu = "Menu double: 0";
+    $bp = "Burger poulet : 0";
+    $bb = "Burger boeuf : 0";
+    $coca = "Coca : 0";
+    $sprite = "Sprite : 0";
+    $fries = "Frite : 0";
+    $ice = "Glace : 0";
+    $donut = "Donut : 0";
     $message = "";
 
     if(isset($_POST['submit'])) {
-        $simpleMenu = "Menu simple : " . $_POST['simple'];
-        $premiumMenu = "Menu premium : " . $_POST['premium'];
-        $maxiMenu = "Menu maxi : " . $_POST['maxi'];
-        $doubleMenu = "Menu double : " . $_POST['double'];
+        $bp = "Burger poulet : " . $_POST['bp'];
+        $bb = "Burger boeuf : " . $_POST['bb'];
+        $coca = "Coca : " . $_POST['coca'];
+        $sprite = "Sprite : " . $_POST['sprite'];
+        $fries = "Frite : " . $_POST['fries'];
+        $ice = "Glace : " . $_POST['ice'];
+        $donut = "Donut : " . $_POST['donut'];
 
-        if($_POST['simple'] !== "0" || $_POST['premium'] !== "0" || $_POST['maxi'] !== "0" || $_POST['double'] !== "0") {
+        if($_POST['bp'] !== "0" || $_POST['bb'] !== "0" || $_POST['coca'] !== "0" || $_POST['sprite'] !== "0" || $_POST['fries'] !== "0" || $_POST['ice'] !== "0" || $_POST['donut'] !== "0") {
             $sql = "SELECT * FROM comptability ORDER BY id DESC";
             $result = $conn->query($sql);
 
@@ -34,25 +40,25 @@
                 }
                 
                 $sellerID = $_SESSION['seller_id'];
-                $sellAmount = $_POST['simple'] . "-" . $_POST['premium'] . "-" . $_POST['maxi'] . "-" . $_POST['double'];
+                $prodAmount = $_POST['bp'] . "-" . $_POST['bb'] . "-" . $_POST['coca'] . "-" . $_POST['sprite'] . "-" . $_POST['fries'] . "-" . $_POST['ice'] . "-" . $_POST['donut'];
                 $currentDate = date("Y-m-d");
                 
 
-                $sql = "INSERT INTO comptability (id, seller_id, quantity, type, date) VALUE ('$id', '$sellerID', '$sellAmount', 'sell', '$currentDate')";
+                $sql = "INSERT INTO comptability (id, seller_id, quantity, type, date) VALUE ('$id', '$sellerID', '$prodAmount', 'prod', '$currentDate')";
                 if($conn->query($sql) === TRUE) {
-                    $message = "<h2 class='success'>Votre commande à été ajouté à votre comptabilité avec succès.</h2>";
+                    $message = "<h2 class='success'>Votre production à été ajouté à votre comptabilité avec succès.</h2>";
                 } else {
-                    $message = "<h2 class='error'>/!\ Erreur, nous n'avons pas réussi à prendre en compte la commande dans votre comptabiltié. Code 85A /!\</h2>";
+                    $message = "<h2 class='error'>/!\ Erreur, nous n'avons pas réussi à prendre en compte la production dans votre comptabiltié. Code 86A /!\</h2>";
                 }
             } else {
-                $message = "<h2 class='error'>/!\ Erreur, nous n'avons pas réussi à attribuer un identifiant à votre commande. Code 85B /!\</h2>";
+                $message = "<h2 class='error'>/!\ Erreur, nous n'avons pas réussi à attribuer un identifiant à votre production. Code 86B /!\</h2>";
             }
         } else {
-            $message = "<h2 class='error'>/!\ Erreur, votre commande est vide. Code 85C /!\</h2>";
+            $message = "<h2 class='error'>/!\ Erreur, votre production est vide. Code 86C /!\</h2>";
         }
     }
 ?>
-
+    
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -66,72 +72,59 @@
     <body>
         <main class="big-container" align="center">
             <form method="POST">
-                <h1>Calculateur de Vente</h1>
+                <h1>Calculateur de Production</h1>
                 <?php if($message !== "") {
                     echo($message);
                 } ?>
                 <div class="grid">
                     <div class="tiles">
-                        <option value="simple">Menu Simple - $40</option>
-                        <input name="simple" for="simple" type="number" id="simpleQuantity" placeholder="Quantité" style="width: 90%;" value="0">
+                        <img src="../assets/images/bp.png"/>
+                        <option value="bp">Burger poulet</option>
+                        <input name="bp" for="bp" type="number" id="bpQuantity" placeholder="Quantité" style="width: 90%;" value="0">
                     </div>
                     <div class="tiles">
-                        <option value="premium">Menu Premium - $50</option>
-                        <input name="premium" for="premium" type="number" id="premiumQuantity" placeholder="Quantité" style="width: 90%;" value="0">
+                        <img src="../assets/images/bb.png"/>
+                        <option value="bb">Burger Boeuf</option>
+                        <input name="bb" for="bb" type="number" id="bbQuantity" placeholder="Quantité" style="width: 90%;" value="0">
                     </div>
                     <div class="tiles">
-                        <option value="maxi">Menu Maxi - $55</option>
-                        <input name="maxi" for="maxi" type="number" id="maxiQuantity" placeholder="Quantité" style="width: 90%;" value="0">
+                        <img src="../assets/images/coca.png"/>
+                        <option value="coca">Coca</option>
+                        <input name="coca" for="coca" type="number" id="cocaQuantity" placeholder="Quantité" style="width: 90%;" value="0">
                     </div>
                     <div class="tiles">
-                        <option value="double">Menu Double - $60</option>
-                        <input name="double" for="double" type="number" id="doubleQuantity" placeholder="Quantité" style="width: 90%;" value="0">
+                    <img src="../assets/images/sprite.png"/>
+                        <option value="sprite">Sprite</option>
+                        <input name="sprite" for="sprite" type="number" id="spriteQuantity" placeholder="Quantité" style="width: 90%;" value="0">
+                    </div>
+                    <div class="tiles">
+                        <img src="../assets/images/frite.png"/>
+                        <option value="fries">Frite</option>
+                        <input name="fries" for="fries" type="number" id="friesQuantity" placeholder="Quantité" style="width: 90%;" value="0">
+                    </div>
+                    <div class="tiles">
+                        <img src="../assets/images/glace.png"/>
+                        <option value="ice">Glace</option>
+                        <input name="ice" for="ice" type="number" id="iceQuantity" placeholder="Quantité" style="width: 90%;" value="0">
                     </div>
                 </div>
-                <a class="button" href="#" onclick='calculate()'>Calculer Facture</a>
-                <p id="price">Prix : $0</p>
+                <div class="tiles">
+                    <img src="../assets/images/donut.png"/>
+                    <option value="donut">Donut</option>
+                    <input name="donut" for="donut" type="number" id="donutQuantity" placeholder="Quantité" style="width: 50%;" value="0">
+                </div>
                 <button type="submit" name="submit">Enregistrer</button>
             </form>
-            <p><?php echo($simpleMenu) ?></p>
-            <p><?php echo($premiumMenu) ?></p>
-            <p><?php echo($maxiMenu) ?></p>
-            <p><?php echo($doubleMenu) ?></p>
+            <div class="grid-2">
+                <p><?php echo($bp) ?></p>
+                <p><?php echo($bb) ?></p>
+                <p><?php echo($coca) ?></p>
+                <p><?php echo($sprite) ?></p>
+                <p><?php echo($fries) ?></p>
+                <p><?php echo($ice) ?></p>
+            </div>
+            <p><?php echo($donut) ?></p>
             <a class="bgs-link" href="../index.php">Retour à la page d'accueil</a>
         </main>
     </body>
-
-    <script>
-        var menuPrices = {
-            simple: 40,
-            premium: 50,
-            maxi: 55,
-            double: 60
-        };
-
-        var totalPrice = 0;
-
-        function updatePrice() {
-            var simple = parseInt(document.getElementById("simpleQuantity").value);
-            var premium = parseInt(document.getElementById("premiumQuantity").value);
-            var maxi = parseInt(document.getElementById("maxiQuantity").value);
-            var double = parseInt(document.getElementById("doubleQuantity").value);
-
-            calculate();
-        }
-
-        function calculate() {
-            var simple = parseInt(document.getElementById("simpleQuantity").value);
-            var premium = parseInt(document.getElementById("premiumQuantity").value);
-            var maxi = parseInt(document.getElementById("maxiQuantity").value);
-            var double = parseInt(document.getElementById("doubleQuantity").value);
-            simple = simple * menuPrices['simple'];
-            premium = premium * menuPrices['premium'];
-            maxi = maxi * menuPrices['maxi'];
-            double = double * menuPrices['double'];
-
-            totalPrice = simple + premium + maxi + double;
-            var priceElement = document.getElementById("price");
-            priceElement.textContent = "Prix : $" + totalPrice;
-        }
-    </script>
 </html>

@@ -101,6 +101,11 @@ button:hover, .button:hover {
     grid-gap: 16px;
 }
 
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+}
+
 .bgs-link {
     background: linear-gradient(to right, #305daa, #c43044);
     -webkit-background-clip: text;
@@ -129,5 +134,9 @@ button:hover, .button:hover {
     }
     .big-container button, .big-container .button {
         width: 80%;
+    }
+    .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2,2fr);
     }
 }
