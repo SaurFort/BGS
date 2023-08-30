@@ -1,9 +1,10 @@
 <?php
-    //session_start();
+    session_start();
 
     include("assets/php/db_connect.php");
     include("assets/php/utils.php");
 
+    
     $error = "";
 
     if(isset($_POST['submit'])) {
@@ -11,7 +12,7 @@
         $firstName = $_POST['first_name'];
         $lastName = $_POST['last_name'];
 
-        $sql = "SELECT * FROM login WHERE first_name='$firstName'";
+        $sql = "SELECT * FROM login WHERE first_name='$firstName' AND last_name='$lastName'";
         $result = $conn->query($sql);
 
         if($result !== false && $result->num_rows > 0) {
@@ -21,7 +22,10 @@
                 $id = random(1, 100);
                 $userID = $firstName . "-" . $lastName . $id;
                 $_SESSION["uid"] = $userID;
+                $_SESSION["first_name"] = $firstName;
+                $_SESSION["last_name"] = $lastName;
                 $_SESSION["rank"] = $row["rank"];
+                $_SESSION['seller_id'] = $row['id'];
                 header("Location: index.php");
                 exit();
             } else {
@@ -44,7 +48,7 @@
         <title>Connexion - Burger-Shot</title>
     </head>
     <body>
-        <main class="container" style="margin-top: 15%;">
+        <main class="container">
             <form method="POST" align="center">
                 <h1>Connexion</h1>
                 <?php echo($error) ?>

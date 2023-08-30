@@ -7,9 +7,21 @@ body {
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 1rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
+    margin-top: 4rem;
+}
+
+.big-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+    margin-top: 4rem;
 }
 
 .error {
@@ -26,15 +38,6 @@ input {
     border-radius: 5px;
 }
 
-/*input[type="number"] {
-    width: 47%; *//* Adjust width here *//*
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}*/
-
-/* Styled Select */
 .styled-select {
     display: inline-block;
     position: relative;
@@ -55,7 +58,6 @@ input {
     cursor: pointer;
 }
 
-/* End of Styled Select */
 button {
     display: block;
     width: 100%;
@@ -63,10 +65,31 @@ button {
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: .6rem;
     cursor: pointer;
+    transition: all 0.7s ease;
 }
 
 button:hover {
     background-color: #0056b3;
+    transition: all 0.7s ease;
+    transform: scale(1.05);
+}
+
+.big-container button {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    grid-gap: 16px;
+}
+
+@media screen and(min-width: 768px) {
+    .big-container {
+        max-width: 900px;
+    }
 }
