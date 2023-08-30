@@ -61,7 +61,7 @@
 
         <link rel="stylesheet" href="../assets/css/style.css">
         <link rel="icon" type="image/png" href="../assets/images/BGS-logo.png">
-        <title>Vente - Burger-Shot</title>
+        <title>Production - Burger-Shot</title>
     </head>
     <body>
         <main class="big-container" align="center">

@@ -24,8 +24,8 @@
                 <?php
                     if($_SESSION['rank'] !== "runner") {
                         echo('<button onclick="window.location.href=\'pages/sell.php\'">Calculateur de Vente</button><br/>
-                                <button onclick="window.location.href=\'pages/prime.php\'>Calculateur de Prime</button><br/>
-                                <button onclick="window.location.href=\'pages/compta.php\'>Comptabilité</button>');
+                                <button onclick="window.location.href=\'pages/prod.php\'">Calculateur de Prod</button><br/>
+                                <button onclick="window.location.href=\'pages/compta.php\'">Comptabilité</button>');
                     }
                 ?>
             </div>

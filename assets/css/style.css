@@ -24,10 +24,17 @@ body {
     margin-top: 4rem;
 }
 
-.error {
-    color: red;
+.error p {
     font-weight: 500;
     font-size: 1.1rem;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
 }
 
 input {
@@ -58,7 +65,7 @@ input {
     cursor: pointer;
 }
 
-button {
+button, .button {
     display: block;
     width: 100%;
     padding: 10px;
@@ -68,15 +75,21 @@ button {
     border-radius: .6rem;
     cursor: pointer;
     transition: all 0.7s ease;
+    text-decoration: none;
+    font-size: 1rem;
 }
 
-button:hover {
+.button {
+    width: inherit;
+}
+
+button:hover, .button:hover {
     background-color: #0056b3;
     transition: all 0.7s ease;
     transform: scale(1.05);
 }
 
-.big-container button {
+.big-container button, .big-container .button {
     margin-left: auto;
     margin-right: auto;
     margin-top: 1rem;
@@ -88,8 +101,33 @@ button:hover {
     grid-gap: 16px;
 }
 
-@media screen and(min-width: 768px) {
+.bgs-link {
+    background: linear-gradient(to right, #305daa, #c43044);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    transition: all 0.7s ease;
+}
+
+.bgs-link:hover {
+    background: linear-gradient(to right, #1e3969, #972535);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    transition: all 0.7s ease;
+}
+
+@media screen and (min-width: 768px) {
     .big-container {
         max-width: 900px;
+    }
+    .grid {
+        grid-template-columns: repeat(2,2fr);
+        grid-gap: 1rem;
+    }
+    .big-container button, .big-container .button {
+        width: 80%;
     }
 }
