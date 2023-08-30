@@ -27,6 +27,10 @@
                                 <button onclick="window.location.href=\'pages/prod.php\'">Calculateur de Prod</button><br/>
                                 <button onclick="window.location.href=\'pages/compta.php\'">Comptabilité</button>');
                     }
+                    if($_SESSION['rank'] == "patron" || $_SESSION['rank'] == "co-patron") {
+                        echo('<br/><br/>
+                            <button class="admin" onclick="window.location.href=\'admin/admin_comptability.php?agree=no\'">Cloture de comptabilité</button>');
+                    }
                 ?>
             </div>
         </main>

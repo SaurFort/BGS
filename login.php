@@ -24,6 +24,7 @@
                 $_SESSION["last_name"] = $lastName;
                 $_SESSION["rank"] = $row["rank"];
                 $_SESSION['seller_id'] = $row['id'];
+                $_SESSION['pwd_verification'] = "no";
                 header("Location: index.php");
                 exit();
             } else {

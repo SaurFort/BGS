@@ -32,6 +32,13 @@
                 $premiumMenu = 0;
                 $maxiMenu = 0;
                 $doubleMenu = 0;
+                $sellBP = 0;
+                $sellBB = 0;
+                $sellCoca = 0;
+                $sellSprite = 0;
+                $sellFries = 0;
+                $sellIcecream = 0;
+                $sellDonut = 0;
                 while($i < $sellCompta) {
                     $i++;
                     $row = $result->fetch_assoc();
@@ -40,6 +47,13 @@
                     $premiumMenu += $data[1];
                     $maxiMenu += $data[2];
                     $doubleMenu += $data[3];
+                    $sellBP += $data[4];
+                    $sellBB += $data[5];
+                    $sellCoca += $data[6];
+                    $sellSprite += $data[7];
+                    $sellFries += $data[8];
+                    $sellIcecream += $data[9];
+                    $sellDonut += $data[10];
                 }
             }
         } else {
@@ -64,6 +78,34 @@
                         <img src="../assets/images/md.png"/>
                         <p>Menu double : ' . $doubleMenu . '</p>
                     </div>
+                    <div class="tile">
+                        <img src="../assets/images/bp.png"/>
+                        <p>Burger poulet : ' . $sellBP . '</p>
+                    </div>
+                    <div class="tile">
+                        <img src="../assets/images/bb.png"/>
+                        <p>Burger boeuf : ' . $sellBB . '</p>
+                    </div>
+                    <div class="tile">
+                        <img src="../assets/images/coca.png"/>
+                        <p>Coca : ' . $sellCoca . '</p>
+                    </div>
+                    <div class="tile">
+                        <img src="../assets/images/sprite.png"/>
+                        <p>Sprite : ' . $sellSprite . '</p>
+                    </div>
+                    <div class="tile">
+                        <img src="../assets/images/frite.png"/>
+                        <p>Frite : ' . $sellFries . '</p>
+                    </div>
+                    <div class="tile">
+                        <img src="../assets/images/glace.png"/>
+                        <p>Glace : ' . $sellIcecream . '</p>
+                    </div>
+                </div>
+                <div class="tile">
+                    <img src="../assets/images/donut.png"/>
+                    <p>Donut : ' . $sellDonut . '</p>
                 </div>');
         } else {
             echo($sellMessage);
@@ -155,6 +197,29 @@
         $currentDate = date("Y-m-d");
         $finalSellMessage = "";
         $finalProdMessage = "";
+        $finalSellTitleMessage = "";
+        $finalProdTitleMessage = "";
+
+        // Dont look that
+        $simpleMenu = 0;
+        $premiumMenu = 0;
+        $maxiMenu = 0;
+        $doubleMenu = 0;
+        $sellBP = 0;
+        $sellBB = 0;
+        $sellCoca = 0;
+        $sellSprite = 0;
+        $sellFries = 0;
+        $sellIcecream = 0;
+        $sellDonut = 0;
+        $bp = 0;
+        $bb = 0;
+        $coca = 0;
+        $sprite = 0;
+        $fries = 0;
+        $ice = 0;
+        $donut = 0;
+        // Now you can look
 
         $sql = "SELECT COUNT(*) AS compta FROM comptability WHERE seller_id='$sellerID' AND type='sell' AND date='$currentDate';";
         $result = $conn->query($sql);
@@ -173,18 +238,29 @@
     
             if($result !== false && $result->num_rows > 0) {
                 $i = 0;
-                $simpleMenu = 0;
-                $premiumMenu = 0;
-                $maxiMenu = 0;
-                $doubleMenu = 0;
                 while($i < $sellCompta) {
                     $i++;
                     $row = $result->fetch_assoc();
+                    $currentCommandID = $row['id'];
                     $data = explode("-", $row['quantity']);
                     $simpleMenu += $data[0];
                     $premiumMenu += $data[1];
                     $maxiMenu += $data[2];
                     $doubleMenu += $data[3];
+                    $sellBP += $data[4];
+                    $sellBB += $data[5];
+                    $sellCoca += $data[6];
+                    $sellSprite += $data[7];
+                    $sellFries += $data[8];
+                    $sellIcecream += $data[9];
+                    $sellDonut += $data[10];
+
+                    $sql = "DELETE FROM comptability WHERE id='$currentCommandID'";
+                    if($conn->query($sql) === TRUE) {
+                        print("Cloture de la commande avec succès");
+                    } else {
+                        print("Echec lors de la cloture de la commande " . $currentCommandID);
+                    }
                 }
                 if($simpleMenu > 0) {
                     $finalSellMessage = "- :simple: Menu simple : " . $simpleMenu . "<br/>";
@@ -194,6 +270,20 @@
                     $finalSellMessage = $finalSellMessage . "- :maxi: Menu maxi : " . $maxiMenu . "<br/>";
                 } if($doubleMenu > 0) {
                     $finalSellMessage = $finalSellMessage . "- :double: Menu premium : " . $doubleMenu . "<br/>";
+                } if($sellBP > 0) {
+                    $finalSellMessage = $finalSellMessage . "- :Chicken: Burger poulet : " . $sellBP . "<br/>";
+                } if($sellBB > 0) {
+                    $finalSellMessage = $finalSellMessage . "- :Beef: Burger boeuf : " . $sellBB . "<br/>";
+                } if($sellCoca > 0) {
+                    $finalSellMessage = $finalSellMessage . "- :SodaC: Coca : " . $sellCoca . "<br/>";
+                } if($sellSprite > 0) {
+                    $finalSellMessage = $finalSellMessage . "- :SodaS: Sprite : " . $sellSprite . "<br/>";
+                } if($sellFries > 0) {
+                    $finalSellMessage = $finalSellMessage . "- :frites: Frite : " . $sellFries . "<br/>";
+                } if($sellIcecream > 0) {
+                    $finalSellMessage = $finalSellMessage . "- :Glace: Glace : " . $sellIcecream . "<br/>";
+                } if($sellDonut > 0) {
+                    $finalSellMessage = $finalSellMessage . "- :Donuts: Donut : " . $sellDonut . "<br/>";
                 }
                 $finalSellTitleMessage = "<p>## Vente :</p>";
             }
@@ -213,16 +303,9 @@
         if($prodCompta >= 1) {
             $sql = "SELECT * FROM comptability WHERE seller_id='$sellerID' AND type='prod' AND date='$currentDate' ORDER BY id;";
             $result = $conn->query($sql);
-    
+
             if($result !== false && $result->num_rows > 0) {
                 $i = 0;
-                $bp = 0;
-                $bb = 0;
-                $coca = 0;
-                $sprite = 0;
-                $fries = 0;
-                $ice = 0;
-                $donut = 0;
                 while($i < $prodCompta) {
                     $i++;
                     $row = $result->fetch_assoc();
@@ -261,10 +344,10 @@
                 ' . $finalProdTitleMessage . '<p>' . $finalProdMessage . '
             </div>');
 
-        calculatePrime($sellerID, $simpleMenu, $premiumMenu, $maxiMenu, $doubleMenu, $bp, $bb, $coca, $sprite, $fries, $ice, $donut);
+        calculatePrime($sellerID, $simpleMenu, $premiumMenu, $maxiMenu, $doubleMenu, $sellBP, $sellBB, $sellCoca, $sellSprite, $sellFries, $sellIcecream, $sellDonut, $bp, $bb, $coca, $sprite, $fries, $ice, $donut);
     }
 
-    function calculatePrime($sellerID, $simpleMenu, $premiumMenu, $maxiMenu, $doubleMenu, $chickenBurger, $beefBurger, $coca, $sprite, $fries, $icecream, $donut) {
+    function calculatePrime($sellerID, $simpleMenu, $premiumMenu, $maxiMenu, $doubleMenu, $sellChickenBurger, $sellBeffBurger, $sellCoca, $sellSprite, $sellFries, $sellIcecream, $sellDonut, $chickenBurger, $beefBurger, $coca, $sprite, $fries, $icecream, $donut) {
         include('db_connect.php');
         $currentDate = date("Y-m-d");
 
@@ -293,12 +376,15 @@
         $premiumMenu *= 5;
         $maxiMenu *= 6;
         $doubleMenu *= 6;
+        $sellBurger = ($sellChickenBurger + $sellBeffBurger) * 2;
+        $sellSoda = $sellCoca + $sellSprite;
+        $sellCondiment = ($sellFries + $sellIcecream + $sellDonut) * 2;
         // Prod
-        $burger = ($chickenBurger + $beefBurger) * 2;
+        $burger = ($chickenBurger + $beefBurger) * 3;
         $condiment = ($fries + $icecream + $donut) * 2;
         $soda = ($coca + $sprite) * 2;
 
-        $total = $simpleMenu + $premiumMenu + $maxiMenu + $doubleMenu + $burger + $condiment + $soda + $actualPrime;
+        $total = $simpleMenu + $premiumMenu + $maxiMenu + $doubleMenu + $sellBurger + $sellSoda + $sellCondiment + $burger + $condiment + $soda + $actualPrime;
 
         $sql = "SELECT * FROM prime WHERE seller_id='$sellerID' AND data='$currentDate' ORDER BY date DESC";
         $result = $conn->query($sql);
