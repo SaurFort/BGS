@@ -34,19 +34,19 @@
                 <div class="grid">
                     <div class="tiles">
                         <option value="simple">Menu Simple - $40</option>
-                        <input for="simple" type="number" id="quantity" placeholder="Quantité" style="width: 378px;">
+                        <input for="simple" type="number" id="quantity" placeholder="Quantité" style="width: 90%;">
                     </div>
                     <div class="tiles">
                         <option value="premium">Menu Premium - $50</option>
-                        <input for="premium" type="number" id="quantity" placeholder="Quantité" style="width: 378px;">
+                        <input for="premium" type="number" id="quantity" placeholder="Quantité" style="width: 90%;">
                     </div>
                     <div class="tiles">
                         <option value="maxi">Menu Maxi - $55</option>
-                        <input for="maxi" type="number" id="quantity" placeholder="Quantité" style="width: 378px;">
+                        <input for="maxi" type="number" id="quantity" placeholder="Quantité" style="width: 90%;">
                     </div>
                     <div class="tiles">
                         <option value="double">Menu Double - $60</option>
-                        <input for="double" type="number" id="quantity" placeholder="Quantité" style="width: 378px;">
+                        <input for="double" type="number" id="quantity" placeholder="Quantité" style="width: 90%;">
                     </div>
                 </div>
                 <button onclick="calculate()">Calculer Facture</button>
