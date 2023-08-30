@@ -8,7 +8,6 @@
     $error = "";
 
     if(isset($_POST['submit'])) {
-        echo('A');
         $firstName = $_POST['first_name'];
         $lastName = $_POST['last_name'];
 
@@ -16,7 +15,6 @@
         $result = $conn->query($sql);
 
         if($result !== false && $result->num_rows > 0) {
-            echo('B');
             $row = $result->fetch_assoc();
             if($firstName == $row['first_name'] && $lastName == $row['last_name']) {
                 $id = random(1, 100);
