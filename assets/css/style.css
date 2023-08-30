@@ -99,6 +99,7 @@ button:hover, .button:hover {
     display: grid;
     grid-template-columns: repeat(1,1fr);
     grid-gap: 16px;
+    margin-bottom: 1rem;
 }
 
 .grid-2 {
@@ -122,6 +123,12 @@ button:hover, .button:hover {
     -webkit-text-fill-color: transparent;
     font-weight: bold;
     transition: all 0.7s ease;
+}
+
+.tile {
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 @media screen and (min-width: 768px) {
