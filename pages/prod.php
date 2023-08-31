@@ -5,29 +5,35 @@
         header("Location: ../login.php");
     } else if($_SESSION['rank'] == "runner") {
         header("Location: ../index.php");
-    }   
+    }
+
+    if($_SESSION['raw-material'] == "no") {
+        $_POST['tomato'] = 0;
+        $_POST['salad'] = 0;
+        $_POST['potato'] = 0;
+    }
 
     include('../assets/php/db_connect.php');
 
-    $bp = "Burger poulet : 0";
+    /*$bp = "Burger poulet : 0";
     $bb = "Burger boeuf : 0";
     $coca = "Coca : 0";
     $sprite = "Sprite : 0";
     $fries = "Frite : 0";
     $ice = "Glace : 0";
-    $donut = "Donut : 0";
+    $donut = "Donut : 0";*/
     $message = "";
 
     if(isset($_POST['submit'])) {
-        $bp = "Burger poulet : " . $_POST['bp'];
+        /*$bp = "Burger poulet : " . $_POST['bp'];
         $bb = "Burger boeuf : " . $_POST['bb'];
         $coca = "Coca : " . $_POST['coca'];
         $sprite = "Sprite : " . $_POST['sprite'];
         $fries = "Frite : " . $_POST['fries'];
         $ice = "Glace : " . $_POST['ice'];
-        $donut = "Donut : " . $_POST['donut'];
+        $donut = "Donut : " . $_POST['donut'];*/
 
-        if($_POST['bp'] !== "0" || $_POST['bb'] !== "0" || $_POST['coca'] !== "0" || $_POST['sprite'] !== "0" || $_POST['fries'] !== "0" || $_POST['ice'] !== "0" || $_POST['donut'] !== "0") {
+        if($_POST['burger'] || $_POST['soda'] || $_POST['fries'] || $_POST['ice'] || $_POST['donut'] || $_POST['tomato'] || $_POST['salad'] || $_POST['potato']) {
             $sql = "SELECT * FROM comptability ORDER BY id DESC";
             $result = $conn->query($sql);
 
@@ -40,11 +46,12 @@
                 }
                 
                 $sellerID = $_SESSION['seller_id'];
-                $prodAmount = $_POST['bp'] . "-" . $_POST['bb'] . "-" . $_POST['coca'] . "-" . $_POST['sprite'] . "-" . $_POST['fries'] . "-" . $_POST['ice'] . "-" . $_POST['donut'];
-                $currentDate = date("Y-m-d");
+                $prodAmount = $_POST['burger'] . "-" . $_POST['soda'] . "-" . $_POST['fries'] . "-" . $_POST['ice'] . "-" . $_POST['donut'] . "-" . $_POST['tomato'] . "-" . $_POST['salad'] . "-" . $_POST['potato'];
                 
 
-                $sql = "INSERT INTO comptability (id, seller_id, quantity, type, date) VALUE ('$id', '$sellerID', '$prodAmount', 'prod', '$currentDate')";
+
+
+                $sql = "INSERT INTO comptability (id, seller_id, quantity, type) VALUE ('$id', '$sellerID', '$prodAmount', 'prod')";
                 if($conn->query($sql) === TRUE) {
                     $message = "<h2 class='success'>Votre production à été ajouté à votre comptabilité avec succès.</h2>";
                 } else {
@@ -76,54 +83,67 @@
                 <?php if($message !== "") {
                     echo($message);
                 } ?>
+                <h2>Cuisine</h2>
                 <div class="grid">
-                    <div class="tiles">
-                        <img src="../assets/images/bp.png"/>
-                        <option value="bp">Burger poulet</option>
-                        <input name="bp" for="bp" type="number" id="bpQuantity" placeholder="Quantité" style="width: 90%;" value="0">
+                    <div class="tile">
+                        <img src="https://i.ibb.co/Vg5XqJx/Sans-titre.png"/>
+                        <option value="burger">Burger</option>
+                        <input name="burger" for="burger" type="number" placeholder="Quantité" style="width: 90%;" value="0" onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'">
                     </div>
-                    <div class="tiles">
-                        <img src="../assets/images/bb.png"/>
-                        <option value="bb">Burger Boeuf</option>
-                        <input name="bb" for="bb" type="number" id="bbQuantity" placeholder="Quantité" style="width: 90%;" value="0">
+                    <div class="tile">
+                        <img src="https://i.ibb.co/VQMCjTb/Sans-titre.png"/>
+                        <option value="soda">Soda</option>
+                        <input name="soda" for="soda" type="number" placeholder="Quantité" style="width: 90%;" value="0" onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'">
                     </div>
-                    <div class="tiles">
-                        <img src="../assets/images/coca.png"/>
-                        <option value="coca">Coca</option>
-                        <input name="coca" for="coca" type="number" id="cocaQuantity" placeholder="Quantité" style="width: 90%;" value="0">
-                    </div>
-                    <div class="tiles">
-                    <img src="../assets/images/sprite.png"/>
-                        <option value="sprite">Sprite</option>
-                        <input name="sprite" for="sprite" type="number" id="spriteQuantity" placeholder="Quantité" style="width: 90%;" value="0">
-                    </div>
-                    <div class="tiles">
+                    <div class="tile">
                         <img src="../assets/images/frite.png"/>
                         <option value="fries">Frite</option>
-                        <input name="fries" for="fries" type="number" id="friesQuantity" placeholder="Quantité" style="width: 90%;" value="0">
+                        <input name="fries" for="fries" type="number" placeholder="Quantité" style="width: 90%;" value="0" onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'">
                     </div>
-                    <div class="tiles">
+                    <div class="tile">
                         <img src="../assets/images/glace.png"/>
                         <option value="ice">Glace</option>
-                        <input name="ice" for="ice" type="number" id="iceQuantity" placeholder="Quantité" style="width: 90%;" value="0">
+                        <input name="ice" for="ice" type="number" placeholder="Quantité" style="width: 90%;" value="0" onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'">
                     </div>
                 </div>
-                <div class="tiles">
+                <div class="tile">
                     <img src="../assets/images/donut.png"/>
                     <option value="donut">Donut</option>
-                    <input name="donut" for="donut" type="number" id="donutQuantity" placeholder="Quantité" style="width: 50%;" value="0">
+                    <input name="donut" for="donut" type="number" placeholder="Quantité" style="width: 50%;" value="0" onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'">
                 </div>
+                <?php
+                    if($_SESSION['raw_material'] == "yes") {
+                        echo('<h2>Matière première</h2>
+                            <div class="grid">
+                                <div class="tile">
+                                    <img src="https://i.ibb.co/L1p9gLr/img.png"/>
+                                    <option value="tomato">Tomate</option>
+                                    <input name="tomato" for="tomato" type="number" placeholder="Quantité" style="width: 90%;" value="0" onkeydown="javascript: return [\'Backspace\',\'Delete\',\'ArrowLeft\',\'ArrowRight\'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!==\'Space\'">
+                                </div>
+                                <div class="tile">
+                                    <img src="https://i.ibb.co/WP673mJ/img.png"/>
+                                    <option value="salad">Salade</option>
+                                    <input name="salad" for="salad" type="number" placeholder="Quantité" style="width: 90%;" value="0" onkeydown="javascript: return [\'Backspace\',\'Delete\',\'ArrowLeft\',\'ArrowRight\'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!==\'Space\'">
+                                </div>
+                            </div>
+                            <div class="tile">
+                                <img src="https://i.ibb.co/PT0KDkZ/img.png"/>
+                                <option value="potato">Patate</option>
+                                <input name="potato" for="potato" type="number" placeholder="Quantité" style="width: 50%;" value="0" onkeydown="javascript: return [\'Backspace\',\'Delete\',\'ArrowLeft\',\'ArrowRight\'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!==\'Space\'">
+                            </div>');
+                    }
+                ?>
                 <button type="submit" name="submit">Enregistrer</button>
             </form>
-            <div class="grid-2">
-                <p><?php echo($bp) ?></p>
-                <p><?php echo($bb) ?></p>
-                <p><?php echo($coca) ?></p>
-                <p><?php echo($sprite) ?></p>
-                <p><?php echo($fries) ?></p>
-                <p><?php echo($ice) ?></p>
+            <!--<div class="grid-2">
+                <p><?php //echo($bp) ?></p>
+                <p><?php //echo($bb) ?></p>
+                <p><?php //echo($coca) ?></p>
+                <p><?php //echo($sprite) ?></p>
+                <p><?php //echo($fries) ?></p>
+                <p><?php //echo($ice) ?></p>
             </div>
-            <p><?php echo($donut) ?></p>
+            <p><?php //echo($donut) ?></p>--><br/>
             <a class="bgs-link" href="../index.php">Retour à la page d'accueil</a>
         </main>
     </body>

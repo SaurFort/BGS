@@ -143,6 +143,12 @@ button.green {
     background-color: green;
 }
 
+img {
+    max-width: 128px;
+    max-height: 128px;
+    margin: .5rem;
+}
+
 @media screen and (min-width: 768px) {
     .big-container {
         max-width: 900px;

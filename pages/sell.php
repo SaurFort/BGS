@@ -52,7 +52,7 @@
                 $currentDate = date("Y-m-d");
                 
 
-                $sql = "INSERT INTO comptability (id, seller_id, quantity, type, date) VALUE ('$id', '$sellerID', '$sellAmount', 'sell', '$currentDate')";
+                $sql = "INSERT INTO comptability (id, seller_id, quantity, type) VALUE ('$id', '$sellerID', '$sellAmount', 'sell')";
                 if($conn->query($sql) === TRUE) {
                     $message = "<h2 class='success'>Votre commande à été ajouté à votre comptabilité avec succès.</h2>";
                 } else {
